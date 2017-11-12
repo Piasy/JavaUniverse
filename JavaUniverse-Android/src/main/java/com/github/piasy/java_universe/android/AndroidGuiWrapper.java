@@ -47,22 +47,31 @@ public class AndroidGuiWrapper implements GuiWrapper {
 
     private final ViewGroup mContainer;
 
+    private int mContainerWidth;
+    private int mContainerHeight;
+
     public AndroidGuiWrapper(final ViewGroup container) {
         mContainer = container;
     }
 
     @Override
     public void createView(final Window window) {
+        if (mContainerWidth == 0) {
+            mContainerWidth = mContainer.getWidth();
+            mContainerHeight = mContainer.getHeight();
+        }
+
         TextView textView = new TextView(mContainer.getContext());
 
         textView.setText(window.getUid());
         textView.setGravity(Gravity.CENTER);
         textView.setBackgroundColor(COLORS[mContainer.getChildCount() % COLORS.length]);
 
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(window.getWidth(),
-                window.getHeight());
-        params.leftMargin = window.getLeft();
-        params.topMargin = window.getTop();
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                getSize(mContainerWidth, window.getWidth()),
+                getSize(mContainerHeight, window.getHeight()));
+        params.leftMargin = getSize(mContainerWidth, window.getLeft());
+        params.topMargin = getSize(mContainerHeight, window.getTop());
         mContainer.addView(textView, params);
 
         textView.setTag(window);
@@ -117,12 +126,16 @@ public class AndroidGuiWrapper implements GuiWrapper {
         for (View child : children) {
             Window window = (Window) child.getTag();
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) child.getLayoutParams();
-            params.width = window.getWidth();
-            params.height = window.getHeight();
-            params.topMargin = window.getTop();
-            params.leftMargin = window.getLeft();
+            params.width = getSize(mContainerWidth, window.getWidth());
+            params.height = getSize(mContainerHeight, window.getHeight());
+            params.leftMargin = getSize(mContainerWidth, window.getLeft());
+            params.topMargin = getSize(mContainerHeight, window.getTop());
             child.setLayoutParams(params);
             child.bringToFront();
         }
+    }
+
+    private int getSize(int full, int size) {
+        return full * size / Window.MATCH_PARENT;
     }
 }

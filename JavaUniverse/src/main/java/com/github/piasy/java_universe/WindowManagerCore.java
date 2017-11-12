@@ -24,6 +24,7 @@
 
 package com.github.piasy.java_universe;
 
+import com.google.j2objc.annotations.ObjectiveCName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class WindowManagerCore {
     }
 
     public void loadWindows() {
-        mDataSource.getWindows(1, 20, new DataSource.Callback<List<Window>>() {
+        mDataSource.getWindows(1, 20, new DataSource.Callback() {
             @Override
             public void onSuccess(final List<Window> data) {
                 mGuiWrapper.clearView();
@@ -109,8 +110,10 @@ public class WindowManagerCore {
     }
 
     public interface Callback {
+        @ObjectiveCName("onWindowAdded:")
         void onWindowAdded(Window window);
 
+        @ObjectiveCName("onError:")
         void onError(int error);
     }
 }

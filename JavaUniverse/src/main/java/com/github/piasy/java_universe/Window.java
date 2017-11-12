@@ -24,13 +24,16 @@
 
 package com.github.piasy.java_universe;
 
+import com.google.j2objc.annotations.ObjectiveCName;
+import com.google.j2objc.annotations.Property;
+
 /**
  * Created by Piasy{github.com/Piasy} on 08/11/2017.
  */
 
 public class Window {
 
-    public static final int MATCH_PARENT = -1;
+    public static final int MATCH_PARENT = 10000;
 
     /**
      * width : 90
@@ -41,16 +44,24 @@ public class Window {
      * uid : knuth
      */
 
+    // all dimensions are percentage scaled by MATCH_PARENT(10000)
+    @Property
     private int width;
+    @Property
     private int height;
+    @Property
     private int top;
+    @Property
     private int left;
+    @Property
     private int z_index;
+    @Property
     private String uid;
 
     public Window() {
     }
 
+    @ObjectiveCName("initWithWidth:height:top:left:zIndex:uid:")
     public Window(int width, int height, int top, int left, int z_index, String uid) {
         this.width = width;
         this.height = height;
@@ -68,6 +79,7 @@ public class Window {
         return new Window(width, height, top, left, z_index, uid);
     }
 
+    @ObjectiveCName("swapWithWindow:")
     public void swap(Window that) {
         int tmp = top;
         top = that.top;

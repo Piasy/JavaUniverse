@@ -24,13 +24,17 @@
 
 package com.github.piasy.java_universe;
 
+import com.google.j2objc.annotations.ObjectiveCName;
+
 /**
  * Created by Piasy{github.com/Piasy} on 08/11/2017.
  */
 
 public interface GuiWrapper {
+    @ObjectiveCName("createViewWithWindow:")
     void createView(Window window);
 
+    @ObjectiveCName("swapViewWithWindow:andWindow:")
     void swapView(Window alice, Window bob);
 
     void clearView();

@@ -32,6 +32,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by Piasy{github.com/Piasy} on 08/11/2017.
@@ -43,30 +44,31 @@ public class RetrofitDataSource implements DataSource {
     public RetrofitDataSource() {
         // callback in main thread by default
         mApi = new Retrofit.Builder()
-                .baseUrl("http://omduludtl.bkt.clouddn.com/")
+                .baseUrl("https://imgs.babits.top/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(Api.class);
     }
 
     @Override
-    public void getWindows(final int page, final int num, final Callback<List<Window>> callback) {
-        mApi.getWindows().enqueue(new retrofit2.Callback<List<Window>>() {
-            @Override
-            public void onResponse(final Call<List<Window>> call,
-                    final Response<List<Window>> response) {
-                callback.onSuccess(response.body());
-            }
+    public void getWindows(final int page, final int num, final Callback callback) {
+        mApi.getWindows("windows_4.json")
+                .enqueue(new retrofit2.Callback<List<Window>>() {
+                    @Override
+                    public void onResponse(final Call<List<Window>> call,
+                            final Response<List<Window>> response) {
+                        callback.onSuccess(response.body());
+                    }
 
-            @Override
-            public void onFailure(final Call<List<Window>> call, final Throwable t) {
-                callback.onFailure(DataSource.ERR_API_FAIL);
-            }
-        });
+                    @Override
+                    public void onFailure(final Call<List<Window>> call, final Throwable t) {
+                        callback.onFailure(DataSource.ERR_API_FAIL);
+                    }
+                });
     }
 
     interface Api {
-        @GET("windows_3.json")
-        Call<List<Window>> getWindows();
+        @GET("{path}")
+        Call<List<Window>> getWindows(@Path("path") String path);
     }
 }

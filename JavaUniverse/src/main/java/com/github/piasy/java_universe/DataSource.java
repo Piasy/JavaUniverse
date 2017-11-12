@@ -24,6 +24,7 @@
 
 package com.github.piasy.java_universe;
 
+import com.google.j2objc.annotations.ObjectiveCName;
 import java.util.List;
 
 /**
@@ -33,14 +34,17 @@ import java.util.List;
 public interface DataSource {
     int ERR_API_FAIL = 1;
 
-    void getWindows(int page, int num, Callback<List<Window>> callback);
+    @ObjectiveCName("getWindowsWithPage:num:callback:")
+    void getWindows(int page, int num, Callback callback);
 
     /**
      * Contract: must be invoked at UI thread.
      */
-    interface Callback<D> {
-        void onSuccess(D data);
+    interface Callback {
+        @ObjectiveCName("onSuccess:")
+        void onSuccess(List<Window> data);
 
+        @ObjectiveCName("onFailure:")
         void onFailure(int error);
     }
 }

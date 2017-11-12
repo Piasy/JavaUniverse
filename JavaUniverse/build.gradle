@@ -43,4 +43,6 @@ android {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/com.google.j2objc/j2objc-annotations
+    compileOnly group: 'com.google.j2objc', name: 'j2objc-annotations', version: '1.3'
 }
