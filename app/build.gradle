@@ -26,5 +26,5 @@ dependencies {
     implementation 'com.jakewharton:butterknife:9.0.0-SNAPSHOT'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-SNAPSHOT'
 
-    implementation project(':JavaUniverse-Android')
+    implementation project(':JavaUniverse')
 }

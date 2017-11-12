@@ -1,1 +1,1 @@
-include ':app', ':JavaUniverse', ':JavaUniverse-Android'
+include ':app', ':JavaUniverse'

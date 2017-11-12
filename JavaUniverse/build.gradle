@@ -32,6 +32,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.releaseVersionCode
         versionName rootProject.ext.releaseVersionName
+
+        sourceSets.main.java.srcDirs = ['src/main/java', 'src/android/java']
     }
 
     buildTypes {
@@ -43,6 +45,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+
     // https://mvnrepository.com/artifact/com.google.j2objc/j2objc-annotations
     compileOnly group: 'com.google.j2objc', name: 'j2objc-annotations', version: '1.3'
 }
