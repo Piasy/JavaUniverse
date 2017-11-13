@@ -47,7 +47,7 @@ public class WindowManagerCore {
     }
 
     public void loadWindows() {
-        mDataSource.getWindows(1, 20, new DataSource.Callback() {
+        mDataSource.getWindows(1, 20, new DataSource.Callback<List<Window>>() {
             @Override
             public void onSuccess(final List<Window> data) {
                 mGuiWrapper.clearView();

@@ -35,14 +35,14 @@ public interface DataSource {
     int ERR_API_FAIL = 1;
 
     @ObjectiveCName("getWindowsWithPage:num:callback:")
-    void getWindows(int page, int num, Callback callback);
+    void getWindows(int page, int num, Callback<List<Window>> callback);
 
     /**
      * Contract: must be invoked at UI thread.
      */
-    interface Callback {
+    interface Callback<D> {
         @ObjectiveCName("onSuccess:")
-        void onSuccess(List<Window> data);
+        void onSuccess(D data);
 
         @ObjectiveCName("onFailure:")
         void onFailure(int error);

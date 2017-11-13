@@ -51,7 +51,7 @@ public class RetrofitDataSource implements DataSource {
     }
 
     @Override
-    public void getWindows(final int page, final int num, final Callback callback) {
+    public void getWindows(final int page, final int num, final Callback<List<Window>> callback) {
         mApi.getWindows("windows_4.json")
                 .enqueue(new retrofit2.Callback<List<Window>>() {
                     @Override
